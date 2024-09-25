@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour{
 
     // Start is called before the first frame update
     private void Start(){
+        ////gameObject.transform.forward = new Vector3(180,0,0);
         //subscribing methods to the playerInput
         playerInput.Player.Movement_Walking.performed += OnMovementPerformed;
         playerInput.Player.Movement_Walking.canceled += OnMovementCanceled;
@@ -51,13 +52,9 @@ public class PlayerMovement : MonoBehaviour{
         //! Or
         rb.velocity = new Vector3(movementWalk.x, rb.velocity.y, movementWalk.z);
 
-        //transform.Rotate(transform.rotation.x, movementWalk.x, transform.rotation.z);
-        if (movementWalk != Vector3.zero){
-
-            //transform.forward = movementWalk;
-            Quaternion qToRotation = Quaternion.LookRotation(movementWalk + transform.position, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, qToRotation, moveSpeed * Time.deltaTime);
-        }
+        //Simple player rotation
+        transform.forward = -movementWalk;
+        
     }
 
 
