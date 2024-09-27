@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour{
         //Move the player around 
         //rb.velocity += movementWalk.normalized * moveSpeed;
         //! Or
-        rb.velocity = new Vector3(movementWalk.x, rb.velocity.y, movementWalk.z);
+        rb.velocity = new Vector3(movementWalk.x, rb.velocity.y, movementWalk.z).normalized * moveSpeed;
 
         //Simple player rotation
         transform.forward = -movementWalk;
@@ -79,9 +79,5 @@ public class PlayerMovement : MonoBehaviour{
 
     public PlayerInputMaps getInputMap(){
         return playerInput;
-    }
-
-    public float getMovement(){
-        return Mathf.Clamp01( Mathf.Abs(movementWalk.x) + Mathf.Abs(movementWalk.z) );
     }
 }
