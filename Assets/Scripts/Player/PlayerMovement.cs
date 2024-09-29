@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour{
 
     //Getting a reference of the rigid body
     private Rigidbody rb;
+    private PlayerSounds playerSounds;
 
     //Variables the movement 
     private Vector3 movementWalk;
@@ -37,11 +38,14 @@ public class PlayerMovement : MonoBehaviour{
 
     // Start is called before the first frame update
     private void Start(){
+        playerSounds = GetComponentInChildren<PlayerSounds>();
         ////gameObject.transform.forward = new Vector3(180,0,0);
         //subscribing methods to the playerInput
         playerInput.Player.Movement_Walking.performed += OnMovementPerformed;
         playerInput.Player.Movement_Walking.canceled += OnMovementCanceled;
         playerInput.Player.Movement_Jump.started += OnJumpPerformed;
+
+        playerInput.Player.Movement_Walking.started += OnMovementStarted;
     }
 
     private void FixedUpdate(){
@@ -60,6 +64,9 @@ public class PlayerMovement : MonoBehaviour{
 
 
     //---Methods meant to track the player's movement---//
+    private void OnMovementStarted(InputAction.CallbackContext ctx){
+        playerSounds.TriggerSoundRadius();
+    }
     //This method will be called when the player is pressing a movement key;
     private void OnMovementPerformed(InputAction.CallbackContext ctx){
         //Setting movement to the value of ctx
@@ -69,6 +76,7 @@ public class PlayerMovement : MonoBehaviour{
     private void OnMovementCanceled(InputAction.CallbackContext ctx){
         //Setting movement to zero when no movement is detected
         movementWalk = Vector3.zero;
+        playerSounds.TriggerNoSoundRadius();
     }
     //This method will be called when the player presses the space bar
     private void OnJumpPerformed(InputAction.CallbackContext ctx){
@@ -77,7 +85,11 @@ public class PlayerMovement : MonoBehaviour{
         rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
     }
 
-    public PlayerInputMaps getInputMap(){
+    public PlayerInputMaps GetInputMap(){
         return playerInput;
+    }
+
+    public Vector3 GetMovementWalk(){
+        return movementWalk;
     }
 }

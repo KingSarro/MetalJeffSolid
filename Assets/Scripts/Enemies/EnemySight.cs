@@ -34,15 +34,15 @@ public class EnemySight : MonoBehaviour{
         //Checks where in the player is relative to the enemy
         //If In front
         if(dotProductOfPlayer >= dotVisionCone){
-            Debug.Log("Player is in front of enemy: " + gameObject.name);
+            //Debug.Log("Player is in front of enemy: " + gameObject.name);
         }
         //If Behind
         else if(dotProductOfPlayer <= -dotVisionCone){
-            Debug.Log("Player is behind enemy: " + gameObject.name);
+            //Debug.Log("Player is behind enemy: " + gameObject.name);
         }
         //If to side
         else{
-            Debug.Log("Player is to the side of enemy: " + gameObject.name);
+            //Debug.Log("Player is to the side of enemy: " + gameObject.name);
         }
     }
 }
